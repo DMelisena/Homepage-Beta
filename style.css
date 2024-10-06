@@ -13,6 +13,7 @@
 body{
   background-color: var(--color1);
   color:white;
+  height:100%;
 }
 *, *::before, *::after {
   box-sizing: border-box;
@@ -46,12 +47,21 @@ li{
 }
  /*}}}*/
 
+/*head{{{*/
 body{
   display:grid;
   grid-template-columns: auto max(60%,800px) auto;
   justify-content:center;
-  grid-template-rows:100vh;
   color:white;
+}
+
+.top-title{
+  padding:10px 0;
+  font-size:28px;
+  align-items:center;
+}
+.topname>img{
+  align-self:center;
 }
 
 .container{
@@ -64,35 +74,113 @@ img{
   width:auto;
 }
 
+.header{
+  display:grid;
+  margin:40px;
+}
+
+.topname{
+  display:flex;
+  justify-content:space-between;
+  padding:10px;
+}
+.techstack{
+  /*background-color: black;*/
+  display:flex;
+  flex-wrap:wrap;
+  padding:20px;
+}
+/*}}}*/
+
+.content{
+  display:grid;
+  gap:20px;
+  grid-template-rows: 30px auto 30px auto 30px auto;
+}
+.main-title{
+
+}
+.main-projects{
+  /*background-color: grey;*/
+}
+.top-projects{
+  /*background-color: green;*/
+}
+.hobbies{
+  /*background-color: blue;*/
+}
+
+.main-title{
+  margin:10px;
+  font-weight: bold;
+  font-size:25px;
+
+}
+.main-projects,
+.top-projects,
+.hobbies{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap:10px;
+  margin:10px
+}
+
+.card{
+  display:grid;
+  grid-template-columns: 180px auto; 
+  grid-template-rows: 30px auto auto; 
+  padding:10px;
+  margin:2px;
+  /*background-color: var(--color1);*/
+}
+
+.card>img{
+  grid-column:1/2;
+  grid-row:1/4;
+  border:10px solid black;
+}
+.card>.title{
+  grid-column: 2/3;
+  grid-row: 1/2;
+  color:white;
+  font-weight:1000;
+  font-size:20px;
+}
+
+.card>.description{
+  grid-column: 2/3;
+  grid-row: 2/3;
+  color:white;
+}
+.card-techstack{
+  grid-column: 2/3;
+  grid-row: 3/4;
+  display:flex;
+  flex-flow:wrap;
+}
+
 .card-icon{
   height:180px;
   border-radius:50px;
   width:auto;
 }
 
-.header{
-  display:grid;
-  margin:40px;
-}
-
-.techstack{
-  display:flex;
-  flex-wrap:wrap;
-}
-.techstack>img{
-  flex: 0 0;
-  }
-
 a{
   text-decoration:none;
 }
 a:hover{
-    background-color: white;
+    background-color: blue;
     color: black;
-    transition: var(--animation-time);
-}
-.card>*{
-  color:white;
 }
 
+h1{
+  color:white;
+  font-size:20px;
+  align-content:center;
+  height:40px;
+}
+.main-title{
+  background-color: var(--color1);
+  padding:10px 20px ;
+}
 
