@@ -1,5 +1,4 @@
-/*coloring+reset{{{*/
-
+ /*basicreset{{{*/
 :root{
   --color1:rgb(2, 21, 38);
   --color2:rgb(3, 52, 110);
@@ -10,6 +9,7 @@
   --color6:rgb(64, 224, 208);
    font-family: Helvetica;
 }
+
 body{
   background-color: var(--color1);
   color:white;
@@ -44,4 +44,18 @@ ul{
 li{
  list-style-type: none;
 }
-/*}}}*/
+ /*}}}*/
+
+body{
+  display:grid;
+  grid-template-columns: auto max(60%,500px) auto;
+  justify-content:center;
+  grid-template-rows:100vh;
+}
+
+.container{
+  grid-column: 2/3;
+  background-color: var(--color4);
+}
+
+
