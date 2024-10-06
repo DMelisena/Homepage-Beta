@@ -48,7 +48,7 @@ li{
 
 body{
   display:grid;
-  grid-template-columns: auto max(60%,500px) auto;
+  grid-template-columns: auto max(60%,800px) auto;
   justify-content:center;
   grid-template-rows:100vh;
   color:white;
@@ -61,8 +61,24 @@ body{
 
 img{
   height:40px;
-  width:auto;
+  width:40px;
 }
+
+.header{
+  display:grid;
+  margin:40px;
+}
+
+.techstack{
+  display:flex;
+  flex-wrap:wrap;
+}
+.techstack>img{
+  flex: 0 0;
+  }
+
+
+
 
 
 
