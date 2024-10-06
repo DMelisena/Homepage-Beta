@@ -51,14 +51,20 @@ body{
   grid-template-columns: auto max(60%,500px) auto;
   justify-content:center;
   grid-template-rows:100vh;
+  color:white;
 }
 
 .container{
   grid-column: 2/3;
-  background-color: var(--color4);
+  background-color: var(--color2v);
+}
+
 img{
   height:40px;
   width:auto;
 }
+
+
+
 
 
