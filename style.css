@@ -61,7 +61,13 @@ body{
 
 img{
   height:40px;
-  width:40px;
+  width:auto;
+}
+
+.card-icon{
+  height:180px;
+  border-radius:50px;
+  width:auto;
 }
 
 .header{
@@ -77,10 +83,16 @@ img{
   flex: 0 0;
   }
 
-
-
-
-
-
+a{
+  text-decoration:none;
+}
+a:hover{
+    background-color: white;
+    color: black;
+    transition: var(--animation-time);
+}
+.card>*{
+  color:white;
+}
 
 
