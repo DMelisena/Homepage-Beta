@@ -77,7 +77,7 @@ img{
 
 .header{
   display:grid;
-  margin:40px;
+  margin:10px 40px 40px;
 }
 
 .topname{
@@ -191,4 +191,22 @@ h1{
 
 .wip{
   padding:20px;
+}
+
+.contact-header{
+  display:flex;
+  justify-content:space-between;
+  color:var(--color1);
+  font-size: 25px;
+  font-weight:90px
+
+}
+.social-media{
+  display:flex;
+  width:200px;
+  justify-content:space-between;
+}
+.social-media>.tech{
+  padding:0 40px;
+  background-color: red;
 }
