@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+/*basicreset{{{*/
+:root {
+  --color1: rgb(2, 21, 38);
+  --color2: rgb(3, 52, 110);
+  --color2v: rgb(0, 48, 104);
+  --color3: rgb(110, 172, 218);
+  --color4: rgb(226, 226, 182);
+  --color5: rgb(0, 128, 128);
+  --color6: rgb(64, 224, 208);
+  /* font-family: Helvetica; */
+  font-family: Inter, sans-serif;
+}
+
+body {
+  background-color: var(--color1);
+  color: white;
+  height: 100%;
+
+  /* merge into one selector */
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  /* merge into one selector */
+  margin: 0;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+
+  /* maintain aspect-ratio */
+  object-fit: cover;
+}
+
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+#root,
+#__next {
+  isolation: isolate;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+/*}}}*/
+
+/*head{{{*/
+/* NOTE: I'll refactor this quite a lot, too much grid imo */
+body {
+  /* display: grid; */
+  /* grid-template-columns: auto max(60%, 800px) auto; */
+  /* justify-content: center; */
+  /* color: white; */
+
+  max-width: 768px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.container {
+  grid-column: 2/3;
+  background-color: var(--color2v);
+}
+
+.header {
+  /* display: grid; */
+  padding-top: 10px;
+  margin: 0px 40px 40px;
+}
+
+/* .topname { */
+/*   display: flex; */
+/*   justify-content: space-between; */
+/*   padding: 10px 0; */
+/* } */
+
+/* .topname>img { */
+/*   align-self: center; */
+/* } */
+
+.topname {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.top-title {
+  padding: 10px 0;
+  font-size: 2rem;
+  /* align-items: center; */
+  font-weight: 900;
+}
+
+.desc {
+  margin: 10px 0;
+}
+
+img {
+  height: 40px;
+  width: auto;
+}
+
+.techstack {
+  /*background-color: black;*/
+  display: flex;
+  flex-wrap: wrap;
+
+  justify-content: center;
+  gap: 10px;
+}
+
+/*}}}*/
+
+.content {
+  /* display: grid; */
+  /* gap: 20px; */
+  /* grid-template-rows: 30px auto 30px auto 30px auto; */
+}
+
+.main-title {}
+
+.main-projects {
+  /*background-color: grey;*/
+}
+
+.top-projects {
+  /*background-color: green;*/
+}
+
+.hobbies {
+  /*background-color: blue;*/
+}
+
+.main-title {
+  margin: 10px;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.main-projects,
+.top-projects,
+.hobbies {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 10px;
+  margin: 10px
+}
+
+a {
+  text-decoration: none;
+  border-radius: 50px;
+}
+
+a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: black;
+}
+
+.card {
+  /* display: grid; */
+  /* grid-template-columns: 180px auto; */
+  /* grid-template-rows: 30px auto auto; */
+  /* padding: 10px; */
+  /* margin: 2px; */
+  /*background-color: var(--color1);*/
+  display: flex;
+  gap: 10px;
+  margin: 10px;
+}
+
+/* .card>img { */
+/*   grid-column: 1/2; */
+/*   grid-row: 1/4; */
+/*   border: 5px solid black; */
+/* } */
+
+.card-icon {
+  width: 200px;
+  height: 200px;
+  border-radius: 50px;
+  border: 5px solid black;
+}
+
+.card-content {
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.card-content>.title {
+  /* grid-column: 2/3; */
+  /* grid-row: 1/2; */
+  /* color: white; */
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.card-content>.description {
+  /* grid-column: 2/3; */
+  /* grid-row: 2/3; */
+  /* color: white; */
+
+  /* uncomment line below to push .card-techstack to the bottom */
+  /* flex: 1; */
+  font-size: 1.2;
+}
+
+.card-techstack {
+  /* grid-column: 2/3; */
+  /* grid-row: 3/4; */
+  display: flex;
+  flex-flow: wrap;
+  margin-bottom: 10px;
+}
+
+h1 {
+  color: white;
+  font-size: 20px;
+  align-content: center;
+  height: 40px;
+}
+
+.main-title {
+  background-color: var(--color1);
+  padding: 10px 20px;
+}
+
+.wip {
+  padding: 20px;
+}
+
+.contact-header {
+  display: flex;
+  justify-content: space-between;
+  color: var(--color1);
+  font-size: 25px;
+  font-weight: 900;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 20px 0;
+}
+
+.social-media {
+  display: flex;
+  width: 200px;
+  justify-content: space-between;
+}
+
+.social-media>.tech {
+  padding: 0 40px;
+  background-color: red;
+}
+
+.client-logo{
+
+}
