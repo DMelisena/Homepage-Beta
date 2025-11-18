@@ -732,8 +732,8 @@ main {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 15px;
-  margin: 0 -15px;
+  /* gap: 15px; */
+  /* margin: 0 -15px; */
 
   padding-bottom: 25px;
   overflow-x: auto;
@@ -749,9 +749,11 @@ main {
 }
 
 .clients-item img {
-  width: 25%;
-  margin: 0 20;
-  padding: 10;
+  height: 170px;
+  width: auto;
+  max-width: 200px;
+  object-fit: contain;
+  margin: 0 0px;
   filter: grayscale(1);
   transition: var(--transition-1);
 }
