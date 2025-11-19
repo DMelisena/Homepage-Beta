@@ -9,6 +9,8 @@ live-server
 
 ## ToDo
 - How do I make the older Homepage-Beta as one of my Project
+- Make the contact me logos to aligns
+- make the cv accessible from the website or copy it's content there
 - contact button on the corner to reveal all contact not necessary just show it all
 - if phone is not hovered, don't need to grey the projects
 - align the name, ml engineer and contact me on about
