@@ -317,12 +317,12 @@ main {
 
 .sidebar {
   margin-bottom: 15px;
-  max-height: 112px;
+  max-height: 230px;
   overflow: hidden;
   transition: var(--transition-2);
 }
 
-.sidebar.active { max-height: 405px; }
+.sidebar.active { max-height: 485px; }
 
 .sidebar-info {
   position: relative;
@@ -365,7 +365,7 @@ main {
   width: max-content;
   padding: 3px 12px;
   border-radius: 8px;
-  margin: 60px auto;
+  margin: 60px 30px auto;
 }
 
 .info_more-btn {
@@ -1346,7 +1346,7 @@ textarea.form-input::-webkit-resizer { display: none; }
    */
 
   .sidebar {
-    max-height: 230px;
+    max-height: 330px;
     margin-bottom: 30px;
   }
 
