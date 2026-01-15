@@ -243,7 +243,7 @@ function createPortfolioItem(article) {
   const li = document.createElement('li');
   li.className = 'project-item active';
   li.setAttribute('data-filter-item', '');
-  li.setAttribute('data-category', 'journal');
+  li.setAttribute('data-category', 'articles');
 
   const fallbackImage = 'https://cdn-images-1.medium.com/fit/c/150/150/1*NDuJWZRtAD0kHJBR2OkUjw.jpeg';
   const imageUrl = article.image || fallbackImage;
@@ -287,6 +287,9 @@ async function populateMediumArticles() {
     projectList.appendChild(articleElement);
   });
 
+  // Update filter items to include new Medium articles
+  const filterItems = document.querySelectorAll('[data-filter-item]');
+
   // Add "Articles" filter button if not present
   const filterList = document.querySelector('.filter-list');
   if (filterList && !document.querySelector('[data-filter-btn="Articles"]')) {
@@ -317,7 +320,18 @@ async function populateMediumArticles() {
         const selectedValue = this.innerText.toLowerCase();
         filterBtns.forEach(b => b.classList.remove('active'));
         this.classList.add('active');
-        filterFunc(selectedValue);
+
+        // Re-query filter items to include newly added Medium articles
+        const currentFilterItems = document.querySelectorAll('[data-filter-item]');
+        currentFilterItems.forEach(item => {
+          if (selectedValue === "all") {
+            item.classList.add("active");
+          } else if (selectedValue === item.dataset.category) {
+            item.classList.add("active");
+          } else {
+            item.classList.remove("active");
+          }
+        });
       });
     });
   }
