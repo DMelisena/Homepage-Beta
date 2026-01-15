@@ -237,3 +237,38 @@ async function fetchMediumArticles() {
 
   return [];
 }
+
+// Create portfolio item HTML for Medium articles
+function createPortfolioItem(article) {
+  const li = document.createElement('li');
+  li.className = 'project-item active';
+  li.setAttribute('data-filter-item', '');
+  li.setAttribute('data-category', 'journal');
+
+  const fallbackImage = 'https://cdn-images-1.medium.com/fit/c/150/150/1*NDuJWZRtAD0kHJBR2OkUjw.jpeg';
+  const imageUrl = article.image || fallbackImage;
+
+  const date = new Date(article.pubDate).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  });
+
+  li.innerHTML = `
+    <a href="${article.link}" target="_blank">
+      <figure class="project-img">
+        <div class="project-item-icon-box">
+          <ion-icon name="eye-outline"></ion-icon>
+        </div>
+        <img src="${imageUrl}"
+             alt="${article.title}"
+             loading="lazy"
+             onerror="this.src='${fallbackImage}'">
+      </figure>
+      <h3 class="project-title">${article.title}</h3>
+      <p class="project-category">Article • ${date}</p>
+    </a>
+  `;
+
+  return li;
+}
