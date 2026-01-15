@@ -272,3 +272,56 @@ function createPortfolioItem(article) {
 
   return li;
 }
+
+// Populate Medium articles in portfolio section
+async function populateMediumArticles() {
+  const projectList = document.querySelector('.project-list');
+  if (!projectList) return;
+
+  const articles = await fetchMediumArticles();
+  if (articles.length === 0) return;
+
+  // Add Medium articles to the project list
+  articles.forEach(article => {
+    const articleElement = createPortfolioItem(article);
+    projectList.appendChild(articleElement);
+  });
+
+  // Add "Articles" filter button if not present
+  const filterList = document.querySelector('.filter-list');
+  if (filterList && !document.querySelector('[data-filter-btn="Articles"]')) {
+    const articlesFilter = document.createElement('li');
+    articlesFilter.className = 'filter-item';
+    articlesFilter.innerHTML = '<button data-filter-btn>Articles</button>';
+
+    // Insert after "Journal" filter, before "Others"
+    const journalFilter = Array.from(filterList.querySelectorAll('[data-filter-btn]'))
+      .find(btn => btn.textContent.trim() === 'Journal');
+
+    if (journalFilter && journalFilter.parentElement) {
+      journalFilter.parentElement.after(articlesFilter);
+    } else {
+      const othersFilter = Array.from(filterList.querySelectorAll('[data-filter-btn]'))
+        .find(btn => btn.textContent.trim() === 'Others');
+      if (othersFilter && othersFilter.parentElement) {
+        othersFilter.parentElement.before(articlesFilter);
+      } else {
+        filterList.appendChild(articlesFilter);
+      }
+    }
+
+    // Add click event to new filter button
+    const filterBtns = document.querySelectorAll('[data-filter-btn]');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const selectedValue = this.innerText.toLowerCase();
+        filterBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        filterFunc(selectedValue);
+      });
+    });
+  }
+}
+
+// Initialize Medium articles on page load
+document.addEventListener('DOMContentLoaded', populateMediumArticles);
