@@ -157,3 +157,49 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
   });
 }
+
+// Medium RSS Feed Integration
+const MEDIUM_USERNAME = 'aryasenaria';
+const MEDIUM_RSS_URL = `https://medium.com/feed/@${MEDIUM_USERNAME}`;
+
+// Fetch and parse Medium RSS feed with fallback proxies
+async function fetchMediumArticles() {
+  const proxies = [
+    `https://api.allorigins.win/raw?url=${encodeURIComponent(MEDIUM_RSS_URL)}`,
+    `https://corsproxy.io/?${encodeURIComponent(MEDIUM_RSS_URL)}`,
+    `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(MEDIUM_RSS_URL)}`
+  ];
+
+  for (const proxyUrl of proxies) {
+    try {
+      const response = await fetch(proxyUrl);
+      if (!response.ok) continue;
+
+      const rssText = await response.text();
+      if (!rssText.includes('<rss') && !rssText.includes('<?xml')) continue;
+
+      const parser = new DOMParser();
+      const xmlDoc = parser.parseFromString(rssText, 'text/xml');
+
+      const parseError = xmlDoc.querySelector('parsererror');
+      if (parseError) continue;
+
+      const items = xmlDoc.querySelectorAll('item');
+      const articles = [];
+
+      items.forEach((item) => {
+        const title = item.querySelector('title')?.textContent || '';
+        const link = item.querySelector('link')?.textContent || '';
+        const pubDate = item.querySelector('pubDate')?.textContent || '';
+
+        articles.push({ title, link, pubDate, image: null, creator: 'Arya Hanif' });
+      });
+
+      return articles;
+    } catch (error) {
+      continue;
+    }
+  }
+
+  return [];
+}
