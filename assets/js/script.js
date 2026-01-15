@@ -191,8 +191,42 @@ async function fetchMediumArticles() {
         const title = item.querySelector('title')?.textContent || '';
         const link = item.querySelector('link')?.textContent || '';
         const pubDate = item.querySelector('pubDate')?.textContent || '';
+        const description = item.querySelector('description')?.textContent || '';
 
-        articles.push({ title, link, pubDate, image: null, creator: 'Arya Hanif' });
+        // Extract cover image from content:encoded
+        let content = '';
+        let contentEncoded = item.querySelector('content\\:encoded');
+        if (!contentEncoded) {
+          contentEncoded = item.querySelector('encoded');
+        }
+        if (!contentEncoded) {
+          const encodedElements = item.getElementsByTagName('content:encoded');
+          if (encodedElements.length > 0) {
+            contentEncoded = encodedElements[0];
+          }
+        }
+
+        if (contentEncoded) {
+          content = contentEncoded.textContent;
+        } else {
+          content = description;
+        }
+
+        // Extract first figure image as cover
+        let image = null;
+        if (content && content.length > 0) {
+          const figureImgMatch = content.match(/<figure[^>]*>\s*<img[^>]+src="([^">]+)"/i);
+          if (figureImgMatch) {
+            image = figureImgMatch[1];
+          } else {
+            const imgMatch = content.match(/<img[^>]+src="([^">]+)"/i);
+            if (imgMatch) {
+              image = imgMatch[1];
+            }
+          }
+        }
+
+        articles.push({ title, link, pubDate, image, creator: 'Arya Hanif' });
       });
 
       return articles;
