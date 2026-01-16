@@ -170,21 +170,36 @@ async function fetchMediumArticles() {
     `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(MEDIUM_RSS_URL)}`
   ];
 
+  console.log('Attempting to fetch from:', MEDIUM_RSS_URL);
+
   for (const proxyUrl of proxies) {
     try {
+      console.log('Trying proxy:', proxyUrl);
       const response = await fetch(proxyUrl);
-      if (!response.ok) continue;
+      if (!response.ok) {
+        console.log('Proxy failed with status:', response.status);
+        continue;
+      }
 
       const rssText = await response.text();
-      if (!rssText.includes('<rss') && !rssText.includes('<?xml')) continue;
+      console.log('Response length:', rssText.length);
+
+      if (!rssText.includes('<rss') && !rssText.includes('<?xml')) {
+        console.log('Response does not contain RSS data');
+        continue;
+      }
 
       const parser = new DOMParser();
       const xmlDoc = parser.parseFromString(rssText, 'text/xml');
 
       const parseError = xmlDoc.querySelector('parsererror');
-      if (parseError) continue;
+      if (parseError) {
+        console.log('XML parse error:', parseError.textContent);
+        continue;
+      }
 
       const items = xmlDoc.querySelectorAll('item');
+      console.log('Found items:', items.length);
       const articles = [];
 
       items.forEach((item) => {
@@ -229,12 +244,15 @@ async function fetchMediumArticles() {
         articles.push({ title, link, pubDate, image, creator: 'Arya Hanif' });
       });
 
+      console.log('Successfully parsed articles:', articles.length);
       return articles;
     } catch (error) {
+      console.log('Proxy error:', error.message);
       continue;
     }
   }
 
+  console.log('All proxies failed');
   return [];
 }
 
@@ -273,68 +291,75 @@ function createPortfolioItem(article) {
   return li;
 }
 
-// Populate Medium articles in portfolio section
+// Populate Medium articles in About page's Articles section
 async function populateMediumArticles() {
-  const projectList = document.querySelector('.project-list');
-  if (!projectList) return;
+  const articleSection = document.querySelector('.about .articles');
+  if (!articleSection) {
+    console.log('Articles section not found');
+    return;
+  }
 
+  console.log('Starting to fetch Medium articles...');
   const articles = await fetchMediumArticles();
-  if (articles.length === 0) return;
+  console.log('Fetched articles:', articles.length);
 
-  // Add Medium articles to the project list
+  if (articles.length === 0) {
+    console.log('No articles found, showing empty state');
+    articleSection.innerHTML = '<p style="color: var(--light-gray); padding: 20px;">No articles available at the moment.</p>';
+    return;
+  }
+
+  // Create header for articles section
+  const header = document.createElement('h3');
+  header.className = 'h3 clients-title';
+  header.textContent = 'Articles';
+
+  // Create articles list
+  const articlesList = document.createElement('ul');
+  articlesList.className = 'clients-list has-scrollbar';
+
+  // Add Medium articles to the articles list
   articles.forEach(article => {
-    const articleElement = createPortfolioItem(article);
-    projectList.appendChild(articleElement);
+    const articleElement = createArticleListItem(article);
+    articlesList.appendChild(articleElement);
   });
 
-  // Update filter items to include new Medium articles
-  const filterItems = document.querySelectorAll('[data-filter-item]');
+  // Clear existing content and add new content
+  articleSection.innerHTML = '';
+  articleSection.appendChild(header);
+  articleSection.appendChild(articlesList);
 
-  // Add "Articles" filter button if not present
-  const filterList = document.querySelector('.filter-list');
-  if (filterList && !document.querySelector('[data-filter-btn="Articles"]')) {
-    const articlesFilter = document.createElement('li');
-    articlesFilter.className = 'filter-item';
-    articlesFilter.innerHTML = '<button data-filter-btn>Articles</button>';
+  console.log('Articles populated successfully');
+}
 
-    // Insert after "Journal" filter, before "Others"
-    const journalFilter = Array.from(filterList.querySelectorAll('[data-filter-btn]'))
-      .find(btn => btn.textContent.trim() === 'Journal');
+// Create article list item for About page
+function createArticleListItem(article) {
+  const li = document.createElement('li');
+  li.className = 'clients-item';
 
-    if (journalFilter && journalFilter.parentElement) {
-      journalFilter.parentElement.after(articlesFilter);
-    } else {
-      const othersFilter = Array.from(filterList.querySelectorAll('[data-filter-btn]'))
-        .find(btn => btn.textContent.trim() === 'Others');
-      if (othersFilter && othersFilter.parentElement) {
-        othersFilter.parentElement.before(articlesFilter);
-      } else {
-        filterList.appendChild(articlesFilter);
-      }
-    }
+  const fallbackImage = 'https://cdn-images-1.medium.com/fit/c/150/150/1*NDuJWZRtAD0kHJBR2OkUjw.jpeg';
+  const imageUrl = article.image || fallbackImage;
 
-    // Add click event to new filter button
-    const filterBtns = document.querySelectorAll('[data-filter-btn]');
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', function() {
-        const selectedValue = this.innerText.toLowerCase();
-        filterBtns.forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
+  const date = new Date(article.pubDate).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  });
 
-        // Re-query filter items to include newly added Medium articles
-        const currentFilterItems = document.querySelectorAll('[data-filter-item]');
-        currentFilterItems.forEach(item => {
-          if (selectedValue === "all") {
-            item.classList.add("active");
-          } else if (selectedValue === item.dataset.category) {
-            item.classList.add("active");
-          } else {
-            item.classList.remove("active");
-          }
-        });
-      });
-    });
-  }
+  li.innerHTML = `
+    <a href="${article.link}" target="_blank">
+      <img src="${imageUrl}"
+           alt="${article.title}"
+           loading="lazy"
+           onerror="this.src='${fallbackImage}'">
+    </a>
+    <div>
+      <h4>${article.title}</h4>
+      <p>${date}</p>
+    </div>
+  `;
+
+  return li;
 }
 
 // Initialize Medium articles on page load
