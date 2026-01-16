@@ -291,43 +291,45 @@ function createPortfolioItem(article) {
   return li;
 }
 
-// Populate Medium articles in About page's Articles section
+// Populate Medium articles in both About page and Portfolio
 async function populateMediumArticles() {
-  const articleSection = document.querySelector('.about .articles');
-  if (!articleSection) {
-    console.log('Articles section not found');
-    return;
-  }
-
   console.log('Starting to fetch Medium articles...');
   const articles = await fetchMediumArticles();
   console.log('Fetched articles:', articles.length);
 
   if (articles.length === 0) {
-    console.log('No articles found, showing empty state');
-    articleSection.innerHTML = '<p style="color: var(--light-gray); padding: 20px;">No articles available at the moment.</p>';
+    console.log('No articles found');
     return;
   }
 
-  // Create header for articles section
-  const header = document.createElement('h3');
-  header.className = 'h3 clients-title';
-  header.textContent = 'Articles';
+  // Populate About page Articles section
+  const articleSection = document.querySelector('.about .articles');
+  if (articleSection) {
+    const header = document.createElement('h3');
+    header.className = 'h3 clients-title';
+    header.textContent = 'Articles';
 
-  // Create articles list
-  const articlesList = document.createElement('ul');
-  articlesList.className = 'clients-list has-scrollbar';
+    const articlesList = document.createElement('ul');
+    articlesList.className = 'clients-list has-scrollbar';
 
-  // Add Medium articles to the articles list
-  articles.forEach(article => {
-    const articleElement = createArticleListItem(article);
-    articlesList.appendChild(articleElement);
-  });
+    articles.forEach(article => {
+      const articleElement = createArticleListItem(article);
+      articlesList.appendChild(articleElement);
+    });
 
-  // Clear existing content and add new content
-  articleSection.innerHTML = '';
-  articleSection.appendChild(header);
-  articleSection.appendChild(articlesList);
+    articleSection.innerHTML = '';
+    articleSection.appendChild(header);
+    articleSection.appendChild(articlesList);
+  }
+
+  // Populate Portfolio section
+  const projectList = document.querySelector('.portfolio .project-list');
+  if (projectList) {
+    articles.forEach(article => {
+      const articleElement = createPortfolioItem(article);
+      projectList.appendChild(articleElement);
+    });
+  }
 
   console.log('Articles populated successfully');
 }
