@@ -24,33 +24,33 @@
   /* gradient */
 
   --bg-gradient-onyx: linear-gradient(
-    to bottom right, 
-    hsl(240, 1%, 25%) 3%, 
+    to bottom right,
+    hsl(240, 1%, 25%) 3%,
     hsl(0, 0%, 19%) 97%
   );
   --bg-gradient-jet: linear-gradient(
-    to bottom right, 
-    hsla(240, 1%, 18%, 0.251) 0%, 
+    to bottom right,
+    hsla(240, 1%, 18%, 0.251) 0%,
     hsla(240, 2%, 11%, 0) 100%
   ), hsl(240, 2%, 13%);
   --bg-gradient-yellow-1: linear-gradient(
-    to bottom right, 
-    hsl(45, 100%, 71%) 0%, 
+    to bottom right,
+    hsl(45, 100%, 71%) 0%,
     hsla(36, 100%, 69%, 0) 50%
   );
   --bg-gradient-yellow-2: linear-gradient(
-    135deg, 
-    hsla(45, 100%, 71%, 0.251) 0%, 
+    135deg,
+    hsla(45, 100%, 71%, 0.251) 0%,
     hsla(35, 100%, 68%, 0) 59.86%
   ), hsl(240, 2%, 13%);
   --border-gradient-onyx: linear-gradient(
-    to bottom right, 
-    hsl(0, 0%, 25%) 0%, 
+    to bottom right,
+    hsl(0, 0%, 25%) 0%,
     hsla(0, 0%, 25%, 0) 50%
   );
   --text-gradient-yellow: linear-gradient(
-    to right, 
-    hsl(45, 100%, 72%), 
+    to right,
+    hsl(45, 100%, 72%),
     hsl(35, 100%, 68%)
   );
 
@@ -96,7 +96,7 @@
   /**
    * shadow
    */
-  
+
   --shadow-1: -4px 8px 24px hsla(0, 0%, 0%, 0.25);
   --shadow-2: 0 16px 30px hsla(0, 0%, 0%, 0.25);
   --shadow-3: 0 16px 40px hsla(0, 0%, 0%, 0.25);
@@ -356,7 +356,7 @@ main {
   margin: auto auto;
 }
 
-.contact-me{
+.contact-button{
   align-items: center;
   color: var(--vegas-gold);
   background: var(--onyx);
@@ -365,7 +365,12 @@ main {
   width: max-content;
   padding: 3px 12px;
   border-radius: 8px;
-  margin: 60px 30px auto;
+}
+.cv-download{
+  margin: 30px auto auto  auto;
+}
+.contact-me{
+  margin: 30px 30px auto;
 }
 
 .info_more-btn {
@@ -523,7 +528,7 @@ main {
 
 
 /**
- * #service 
+ * #service
  */
 
 .service { margin-bottom: 35px; }
@@ -571,7 +576,7 @@ main {
 
 
 /**
- * #testimonials 
+ * #testimonials
  */
 
 .testimonials { margin-bottom: 30px; }
@@ -737,7 +742,7 @@ main {
 
 
 /**
- * #clients 
+ * #clients
  */
 
 .clients { margin-bottom: 15px; }
@@ -839,7 +844,7 @@ main {
 
 
 /**
- * education and experience 
+ * education and experience
  */
 
 .timeline { margin-bottom: 30px; }
@@ -902,7 +907,7 @@ main {
 
 
 /**
- * skills 
+ * skills
  */
 
 .skills-title { margin-bottom: 20px; }
@@ -1315,7 +1320,7 @@ textarea.form-input::-webkit-resizer { display: none; }
 
 
   /**
-   * #PORTFOLIO, BLOG 
+   * #PORTFOLIO, BLOG
    */
 
   .blog-banner-box { height: auto; }
@@ -1710,7 +1715,7 @@ textarea.form-input::-webkit-resizer { display: none; }
     width: max-content;
     margin-left: auto;
   }
-  
+
 }
 
 
@@ -1753,7 +1758,7 @@ textarea.form-input::-webkit-resizer { display: none; }
 
 
   /**
-   * MAIN 
+   * MAIN
    */
 
   main { margin-bottom: 60px; }
