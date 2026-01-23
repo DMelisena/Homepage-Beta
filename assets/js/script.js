@@ -74,15 +74,17 @@ for (let i = 0; i < selectItems.length; i++) {
 const filterItems = document.querySelectorAll("[data-filter-item]");
 
 const filterFunc = function (selectedValue) {
+  // Query filter items dynamically to include dynamically added items
+  const currentFilterItems = document.querySelectorAll("[data-filter-item]");
 
-  for (let i = 0; i < filterItems.length; i++) {
+  for (let i = 0; i < currentFilterItems.length; i++) {
 
     if (selectedValue === "all") {
-      filterItems[i].classList.add("active");
-    } else if (selectedValue === filterItems[i].dataset.category) {
-      filterItems[i].classList.add("active");
+      currentFilterItems[i].classList.add("active");
+    } else if (selectedValue === currentFilterItems[i].dataset.category) {
+      currentFilterItems[i].classList.add("active");
     } else {
-      filterItems[i].classList.remove("active");
+      currentFilterItems[i].classList.remove("active");
     }
 
   }
@@ -259,7 +261,7 @@ async function fetchMediumArticles() {
 // Create portfolio item HTML for Medium articles
 function createPortfolioItem(article) {
   const li = document.createElement('li');
-  li.className = 'project-item active';
+  li.className = 'project-item';
   li.setAttribute('data-filter-item', '');
   li.setAttribute('data-category', 'articles');
 
@@ -330,6 +332,10 @@ async function populateMediumArticles() {
       projectList.appendChild(articleElement);
     });
   }
+
+  // Apply current filter after adding articles (default is "all")
+  const currentFilter = selectValue?.innerText.toLowerCase() || 'all';
+  filterFunc(currentFilter);
 
   console.log('Articles populated successfully');
 }
